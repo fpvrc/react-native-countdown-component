@@ -38,7 +38,7 @@ class CountDown extends React.Component {
     onPress: PropTypes.func,
     onFinish: PropTypes.func,
   };
-
+  appStateSubscription;
   state = {
     until: Math.max(this.props.until, 0),
     lastUntil: null,
@@ -51,7 +51,10 @@ class CountDown extends React.Component {
   }
 
   componentDidMount() {
-    AppState.addEventListener("change", this._handleAppStateChange);
+    this.appStateSubscription = AppState.addEventListener(
+      "change",
+      this._handleAppStateChange
+    );
   }
 
   componentWillUnmount() {
